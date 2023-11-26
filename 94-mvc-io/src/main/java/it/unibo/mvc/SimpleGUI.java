@@ -1,7 +1,5 @@
 package it.unibo.mvc;
 
-import java.util.List;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -20,33 +18,39 @@ import javax.swing.JTextField;
  */
 public final class SimpleGUI {
 
+    private static final int PROPORTION_X = 4;
+    private static final int PROPORTION_Y = 2;
+
     private final JFrame frame = new JFrame();
-    private Controller controller = new SimpleController();
+    private final Controller controller = new SimpleController();
 
     public SimpleGUI() {
-        JPanel canvas = new JPanel(new BorderLayout());
+        //initializing frame and canvas
+        final JPanel canvas = new JPanel(new BorderLayout());
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JTextField string = new JTextField();
-        JTextArea historyText = new JTextArea();
+        //creating components
+        final JTextField string = new JTextField();
+        final JTextArea historyText = new JTextArea();
         historyText.setEditable(false);
-        JPanel buttons = new JPanel(new BorderLayout());
+        final JPanel buttons = new JPanel(new BorderLayout());
+        final JButton showHistory = new JButton("Show history");
+        final JButton print = new JButton("Print");
+        //setting UI
+        buttons.add(print, BorderLayout.CENTER);
+        buttons.add(showHistory, BorderLayout.EAST);
         canvas.add(string, BorderLayout.NORTH);
         canvas.add(historyText, BorderLayout.CENTER);
         canvas.add(buttons, BorderLayout.SOUTH);
-        JButton print = new JButton("Print");
-        JButton showHistory = new JButton("Show history");
-        buttons.add(print, BorderLayout.CENTER);
-        buttons.add(showHistory, BorderLayout.EAST);
 
         /*
-         * listeners
+         * Handlers
          */
         print.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.setNextStringPrint(string.getText());
+            public void actionPerformed(final ActionEvent e) {
+                controller.setNextStringToPrint(string.getText());
                 controller.printString();
             }
         });
@@ -54,9 +58,9 @@ public final class SimpleGUI {
         showHistory.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 historyText.setText("");
-                for (String t : controller.getPrintHistory()) {
+                for (final String t : controller.getPrintHistory()) {
                     historyText.append(t + "\n");
                 }
             }
@@ -67,12 +71,12 @@ public final class SimpleGUI {
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
-        frame.setSize(sw / 4, sh / 2);
+        frame.setSize(sw / PROPORTION_X, sh / PROPORTION_Y);
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new SimpleGUI().display();
     }
 }

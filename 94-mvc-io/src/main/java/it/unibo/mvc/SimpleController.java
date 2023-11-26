@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public final class SimpleController implements Controller {
 
-    private List<String> stringHistory;
+    private final List<String> stringHistory;
     private String toPrint;
 
     public SimpleController() {
@@ -18,13 +18,13 @@ public final class SimpleController implements Controller {
     }
 
     @Override
-    public void setNextStringPrint(String toPrint) {
+    public void setNextStringToPrint(final String toPrint) {
         Objects.requireNonNull(toPrint);
         this.toPrint = toPrint;
     }
 
     @Override
-    public String getNextStringPrint() {
+    public String getNextStringToPrint() {
         return this.toPrint;
     }
 
@@ -36,7 +36,7 @@ public final class SimpleController implements Controller {
     @Override
     public void printString() {
         if (Objects.isNull(toPrint)) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("String to print is unset");
         }
         System.out.println(toPrint);
         this.stringHistory.add(toPrint);

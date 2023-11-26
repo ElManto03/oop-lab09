@@ -1,14 +1,5 @@
 package it.unibo.mvc;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.plaf.BorderUIResource.TitledBorderUIResource;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -16,6 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * A very simple program using a graphical interface.
@@ -28,22 +27,22 @@ public final class SimpleGUIWithFileChooser {
     private static final String TITLE = "My second Java Graphical interface";
 
     private final JFrame frame = new JFrame(TITLE);
-    private Controller controller = new Controller();
+    private final Controller controller = new Controller();
 
     public SimpleGUIWithFileChooser() {
-        JPanel canvas = new JPanel(new BorderLayout());
-        JPanel content = new JPanel(new BorderLayout());
+        final JPanel canvas = new JPanel(new BorderLayout());
+        final JPanel content = new JPanel(new BorderLayout());
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JTextField search = new JTextField();
+        final JTextField search = new JTextField();
         search.setEditable(false);
-        JButton browse = new JButton("Browse...");
+        final JButton browse = new JButton("Browse...");
         canvas.add(content, BorderLayout.NORTH);
         content.add(search, BorderLayout.CENTER);
         content.add(browse, BorderLayout.LINE_END);
-        JTextArea text = new JTextArea();
+        final JTextArea text = new JTextArea();
         canvas.add(text, BorderLayout.CENTER);
-        JButton save = new JButton("Save");
+        final JButton save = new JButton("Save");
         canvas.add(save, BorderLayout.SOUTH);
 
         /*
@@ -64,9 +63,9 @@ public final class SimpleGUIWithFileChooser {
         browse.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileop = new JFileChooser();
-                int returnval = fileop.showSaveDialog(content);
+            public void actionPerformed(final ActionEvent e) {
+                final JFileChooser fileop = new JFileChooser();
+                final int returnval = fileop.showSaveDialog(content);
                 if (returnval == JFileChooser.APPROVE_OPTION) {
                     final File newFile = fileop.getSelectedFile();
                     controller.setFile(newFile);
@@ -87,7 +86,7 @@ public final class SimpleGUIWithFileChooser {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new SimpleGUIWithFileChooser().display();
     }
 
