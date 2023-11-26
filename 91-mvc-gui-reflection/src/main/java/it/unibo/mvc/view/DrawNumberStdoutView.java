@@ -27,7 +27,6 @@ public class DrawNumberStdoutView implements DrawNumberView{
             }
             case YOU_WON -> System.out.println(res.getDescription() + NEW_GAME);
             case YOU_LOST -> System.out.println(res.getDescription() + NEW_GAME);
-            default -> throw new IllegalStateException("Unknown game state");
         }
         System.out.println("Resetting the game");
     }
