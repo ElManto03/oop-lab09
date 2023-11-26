@@ -10,15 +10,16 @@ import java.nio.charset.StandardCharsets;
  */
 public class Controller {
 
-    private static final String DEFAULT_FILE = System.getProperty("user.home") + File.separator + "output.txt";
+    private static final String DEFAULT_FILE = System.getProperty("user.home")
+            + File.separator + "output.txt";
 
     private File file;
 
-    public Controller () {
+    public Controller() {
         this.file = new File(DEFAULT_FILE);
     }
 
-    public void setFile(File file) {
+    public void setFile(final File file) {
         this.file = file;
     }
 
@@ -30,12 +31,10 @@ public class Controller {
         return this.file.getAbsolutePath();
     }
 
-    public void writeOnFile(String text) throws IOException {
+    public void writeOnFile(final String text) throws IOException {
         try (PrintStream p = new PrintStream(this.file, StandardCharsets.UTF_8)) {
             p.print(text);
         }
     }
-
-
 
 }
