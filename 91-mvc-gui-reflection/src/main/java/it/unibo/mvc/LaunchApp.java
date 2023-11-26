@@ -1,11 +1,12 @@
 package it.unibo.mvc;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
 import it.unibo.mvc.api.DrawNumberController;
 import it.unibo.mvc.api.DrawNumberView;
 import it.unibo.mvc.controller.DrawNumberControllerImpl;
 import it.unibo.mvc.model.DrawNumberImpl;
-import java.lang.reflect.*;
-import java.util.List;
 
 /**
  * Application entry-point.
@@ -32,8 +33,7 @@ public final class LaunchApp {
        
         for (final var viewClass : List.of("Swing", "Stdout")) {
             final var classView = Class.forName("it.unibo.mvc.view.DrawNumber" + viewClass + "View");
-            final var myIstance = classView.getConstructor().newInstance();
-            if (DrawNumberView.class.isAssignableFrom(myIstance.getClass())) {
+            if (DrawNumberView.class.isAssignableFrom(classView)) {
                 for (int i = 0; i < 3; i++) {
                     app.addView((DrawNumberView)classView.getConstructor().newInstance());
                 }
